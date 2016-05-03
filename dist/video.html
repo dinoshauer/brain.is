@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>brain.is/{{ path }}</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      /*
+      http://thenewcode.com/777/Create-Fullscreen-HTML5-Page-Background-Video
+      */
+      video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+        background: url({{ still }}) no-repeat;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+  <video id="video" autostart autoplay loop>
+    <source src="{{ gif }}" type="video/mp4" />
+  </video>
+  <script>
+    var v = document.getElementById('video');
+
+    v.addEventListener('loadstart', function() {
+      console.log('loadstart');
+    }, true);
+
+    v.addEventListener('canplay', function() {
+      console.log('canplay');
+    }, true);
+  </script>
+  </body>
+</html>

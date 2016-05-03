@@ -1,0 +1,25 @@
+{
+  "name": "brain.is",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "encrypt": "encrypt-env --env BRAIN --write",
+    "decrypt": "encrypt-env --decrypt --env BRAIN --write",
+    "dev": "nodemon index.js -e js,html",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "k@mackwerk.dk",
+  "license": "MIT",
+  "dependencies": {
+    "giphy-api": "^1.1.15",
+    "handlebars": "^4.0.5",
+    "hapi": "^13.3.0",
+    "vision": "^4.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^2.0.0",
+    "encrypt-env": "^0.2.8"
+  }
+}
