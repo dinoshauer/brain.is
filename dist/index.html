@@ -10,20 +10,31 @@
       h1 {
         display: inline;
       }
+
+      .hidden {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <h1>my brain.is/</h1>
+    <h1>{{ thing }}.brain.is/</h1>
     <h1 contentEditable="true" id="input"></h1>
+    <p id="command" class="hidden">Press enter...</p>
     <script>
       var input = document.getElementById('input');
+      var command = document.getElementById('command');
 
       input.focus();
       input.addEventListener('input', function() {
         var text = input.innerText;
+
+        if (text.length === 0) command.className = 'hidden';
+        else command.className = '';
+
         if (text.charAt(text.length - 2) === '\n') {
           return window.location = '/' + text;
         }
+
         input.innerText = text.replace(' ', '/') .replace('\n', '');
       });
     </script>

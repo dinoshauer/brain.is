@@ -39,7 +39,11 @@ server.route({
   method: 'GET',
   path: '/',
   handler: (request, reply) => {
-    reply.view('index.html');
+    let thing = 'dev';
+    if (process.env.NODE_ENV === 'production') {
+      thing = request.info.host.split('.')[0];
+    }
+    reply.view('index.html', { thing });
   }
 });
 
