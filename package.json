@@ -16,6 +16,7 @@
     "giphy-api": "^1.1.15",
     "handlebars": "^4.0.5",
     "hapi": "^13.3.0",
+    "lru-cache": "^4.0.1",
     "vision": "^4.1.0"
   },
   "devDependencies": {

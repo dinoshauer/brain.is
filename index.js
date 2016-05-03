@@ -1,6 +1,7 @@
 'use strict';
 const giphyApi = require('giphy-api');
 const path = require('path');
+const lru = require('lru-cache');
 const Hapi = require('hapi');
 const vision = require('vision');
 const handlebars = require('handlebars');
@@ -14,6 +15,7 @@ const giphy = giphyApi({
   https: true
 });
 const server = new Hapi.Server();
+const recents = lru(20);
 
 server.register({
   register: vision
@@ -39,11 +41,21 @@ server.route({
   method: 'GET',
   path: '/',
   handler: (request, reply) => {
-    let thing = 'dev';
+    let thing = 'localhost:3000';
     if (process.env.NODE_ENV === 'production') {
       thing = request.info.host.split('.brain.is')[0];
     }
-    reply.view('index.html', { thing });
+
+    const cache = recents.get(thing) || [];
+    const recentThings = cache.map(item => {
+      if (process.env.NODE_ENV === 'production') {
+        return `${request.info.host}/${item}`;
+      }
+      return `${request.info.host}/${item}`;
+    });
+    const hasRecents = cache.length !== 0;
+
+    reply.view('index.html', { thing, recentThings, hasRecents });
   }
 });
 
@@ -57,13 +69,27 @@ server.route({
       if (res.data.length === 0) return reply('Oh no crap.\n');
 
       const index = Math.floor(Math.random() * (res.data.length - 0));
-
-      reply.view('video.html', {
+      const opts = {
         id: res.data[index].id,
         path: request.params.query,
         gif: res.data[index].images.looping.mp4,
         still: res.data[index].images.original_still.url
-      });
+      };
+
+      const id = request.info.host.split('.brain.is')[0];
+      const currentRecents = recents.get(id) || [];
+      currentRecents.push(`${query.replace(' ', '')}#${opts.id}`);
+      recents.set(id, currentRecents);
+
+      reply.view('video.html', opts);
     });
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/favicon.ico',
+  handler: (request, reply) => {
+    reply('no.');
   }
 });
