@@ -41,7 +41,7 @@ server.route({
   handler: (request, reply) => {
     let thing = 'dev';
     if (process.env.NODE_ENV === 'production') {
-      thing = request.info.host.split('.')[0];
+      thing = request.info.host.split('.brain.is')[0];
     }
     reply.view('index.html', { thing });
   }
