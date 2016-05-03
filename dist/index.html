@@ -14,12 +14,33 @@
       .hidden {
         display: none;
       }
+
+      div {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      a,a:visited {
+        color: black;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
     <h1>{{ thing }}.brain.is/</h1>
     <h1 contentEditable="true" id="input"></h1>
     <p id="command" class="hidden">Press enter...</p>
+    <div>
+      <p>Built with 💩 by <a href="https://github.com/Dinoshauer">@dinoshauer</a></p>
+      <p><a href="https://github.com/Dinoshauer/brain.is">Fork it!</a></p>
+    </div>
     <script>
       var input = document.getElementById('input');
       var command = document.getElementById('command');
@@ -32,7 +53,9 @@
         else command.className = '';
 
         if (text.charAt(text.length - 2) === '\n') {
-          window.location = '/' + text.replace('\n', '').replace(/\s/g, '/');
+          window.location = '/' + text
+            .replace('\n', '')
+            .replace(/\s/g, '/');
         }
       });
     </script>

@@ -59,6 +59,7 @@ server.route({
       const index = Math.floor(Math.random() * (res.data.length - 0));
 
       reply.view('video.html', {
+        id: res.data[index].id,
         path: request.params.query,
         gif: res.data[index].images.looping.mp4,
         still: res.data[index].images.original_still.url

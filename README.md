@@ -1,1 +1,1 @@
-http://brain.is/
+http://my.brain.is/amazing

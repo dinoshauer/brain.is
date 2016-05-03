@@ -28,25 +28,30 @@
         -moz-transform: translateX(-50%) translateY(-50%);
         -webkit-transform: translateX(-50%) translateY(-50%);
         transform: translateX(-50%) translateY(-50%);
-        background: url({{ still }}) no-repeat;
+        background: black no-repeat;
         background-size: cover;
       }
     </style>
   </head>
   <body>
   <video id="video" autostart autoplay loop>
-    <source src="{{ gif }}" type="video/mp4" />
   </video>
   <script>
     var v = document.getElementById('video');
+    var gif = '{{ gif }}';
+    var id = window.location.hash.replace('#', '');
+    var link = 'https://media.giphy.com/media/' + id + '/giphy-loop.mp4';
+    var source = document.createElement('source');
 
-    v.addEventListener('loadstart', function() {
-      console.log('loadstart');
-    }, true);
-
-    v.addEventListener('canplay', function() {
-      console.log('canplay');
-    }, true);
+    if (id) {
+      source.src = link
+    } else {
+      window.location.hash = '{{ id }}';
+      source.src = gif;
+      v.poster = '{{ still }}';
+    }
+    source.type = 'video/mp4';
+    v.appendChild(source);
   </script>
   </body>
 </html>
