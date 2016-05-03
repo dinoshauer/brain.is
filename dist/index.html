@@ -32,10 +32,8 @@
         else command.className = '';
 
         if (text.charAt(text.length - 2) === '\n') {
-          return window.location = '/' + text;
+          window.location = '/' + text.replace('\n', '').replace(/\s/g, '/');
         }
-
-        input.innerText = text.replace(' ', '/') .replace('\n', '');
       });
     </script>
   </body>
