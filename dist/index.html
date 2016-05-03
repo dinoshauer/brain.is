@@ -16,10 +16,10 @@
     <h1>my brain.is/</h1>
     <h1 contentEditable="true" id="input"></h1>
     <script>
-      var input = document.getElementById("input");
+      var input = document.getElementById('input');
 
       input.focus();
-      input.addEventListener("input", function() {
+      input.addEventListener('input', function() {
         var text = input.innerText;
         if (text.charAt(text.length - 2) === '\n') {
           return window.location = '/' + text;
