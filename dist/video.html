@@ -34,24 +34,23 @@
     </style>
   </head>
   <body>
-  <video id="video" autostart autoplay loop>
-  </video>
-  <script>
-    var v = document.getElementById('video');
-    var gif = '{{ gif }}';
-    var id = window.location.hash.replace('#', '');
-    var link = 'https://media.giphy.com/media/' + id + '/giphy-loop.mp4';
-    var source = document.createElement('source');
+    <video id="video" autostart autoplay loop></video>
+    <script>
+      var v = document.getElementById('video');
+      var gif = '{{ gif }}';
+      var id = window.location.hash.replace('#', '');
+      var link = 'https://media.giphy.com/media/' + id + '/giphy-loop.mp4';
+      var source = document.createElement('source');
 
-    if (id) {
-      source.src = link
-    } else {
-      window.location.hash = '{{ id }}';
-      source.src = gif;
-      v.poster = '{{ still }}';
-    }
-    source.type = 'video/mp4';
-    v.appendChild(source);
-  </script>
+      if (id) {
+        source.src = link
+      } else {
+        window.location.hash = '{{ id }}';
+        source.src = gif;
+        v.poster = '{{ still }}';
+      }
+      source.type = 'video/mp4';
+      v.appendChild(source);
+    </script>
   </body>
 </html>
