@@ -1,4 +1,5 @@
 'use strict';
+const Boom = require('boom');
 const giphyApi = require('giphy-api');
 const path = require('path');
 const lru = require('lru-cache');
@@ -37,6 +38,35 @@ server.start((err) => {
   console.log('Server running at:', server.info.uri);
 });
 
+server.ext('onPreResponse', (request, reply) => {
+  // Thanks https://github.com/dwyl/hapi-error
+  if (!request.response.isBoom) return reply.continue();
+
+  const statusCode = request.response.output.payload.statusCode;
+  const error = request.response.output.payload.error;
+
+  if (statusCode === 500) {
+    return reply.view('error.html', {
+      title: '😱！💩.',
+      message: `${statusCode}!!`,
+      gif: 'https://media.giphy.com/media/P4WGYjpMMPEWI/giphy-loop.mp4',
+      still: 'https://media1.giphy.com/media/P4WGYjpMMPEWI/giphy_s.gif'
+    });
+  }
+
+  giphy.search(error, (err, res) => {
+    if (err) throw err;
+
+    const index = Math.floor(Math.random() * (res.data.length - 0));
+    return reply.view('error.html', {
+      title: '😱！💩.',
+      message: `¡${statusCode}!`,
+      gif: res.data[index].images.looping.mp4,
+      still: res.data[index].images.original_still.url
+    });
+  });
+});
+
 server.route({
   method: 'GET',
   path: '/',
@@ -66,7 +96,7 @@ server.route({
     const query = request.params.query.replace('/', ' ');
     giphy.search(query, (err, res) => {
       if (err) throw err;
-      if (res.data.length === 0) return reply('Oh no crap.\n');
+      if (res.data.length === 0) throw Boom.notFound();
 
       const index = Math.floor(Math.random() * (res.data.length - 0));
       const opts = {
