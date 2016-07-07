@@ -5,6 +5,7 @@ const path = require('path');
 const lru = require('lru-cache');
 const Hapi = require('hapi');
 const vision = require('vision');
+const inert = require('inert');
 const handlebars = require('handlebars');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -20,6 +21,12 @@ const recents = lru(20);
 
 server.register({
   register: vision
+}, err => {
+  if (err) throw err;
+});
+
+server.register({
+  register: inert
 }, err => {
   if (err) throw err;
 });
@@ -69,6 +76,22 @@ server.ext('onPreResponse', (request, reply) => {
 
 server.route({
   method: 'GET',
+  path: '/static/app-icon/{param*}',
+  handler: {
+    directory: {
+      path: 'dist/static'
+    }
+  },
+  config: {
+    cache: {
+      expiresIn: 86400000,
+      privacy: 'public'
+    }
+  }
+});
+
+server.route({
+  method: 'GET',
   path: '/',
   handler: (request, reply) => {
     let thing = 'localhost:3000';
@@ -93,33 +116,27 @@ server.route({
   method: 'GET',
   path: '/{query*}',
   handler: (request, reply) => {
-    const query = request.params.query.replace('/', ' ');
+    const query = request.params.query.replace(/\//g, ' ');
     giphy.search(query, (err, res) => {
       if (err) throw err;
       if (res.data.length === 0) throw Boom.notFound();
 
+      const thing = request.info.host.split('.brain.is')[0];
       const index = Math.floor(Math.random() * (res.data.length - 0));
       const opts = {
         id: res.data[index].id,
         path: request.params.query,
         gif: res.data[index].images.looping.mp4,
-        still: res.data[index].images.original_still.url
+        still: res.data[index].images.original_still.url,
+        thing,
+        query
       };
 
-      const id = request.info.host.split('.brain.is')[0];
-      const currentRecents = recents.get(id) || [];
+      const currentRecents = recents.get(thing) || [];
       currentRecents.push(`${query.replace(' ', '')}#${opts.id}`);
-      recents.set(id, currentRecents);
+      recents.set(thing, currentRecents);
 
       reply.view('video.html', opts);
     });
-  }
-});
-
-server.route({
-  method: 'GET',
-  path: '/favicon.ico',
-  handler: (request, reply) => {
-    reply('no.');
   }
 });
