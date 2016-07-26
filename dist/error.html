@@ -32,63 +32,12 @@
     <meta property="og:video" content="{{ gif }}" />
 
     <title>brain.is/{{ path }}</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        color: cornsilk;
-      }
-
-      body {
-        margin-top: 3rem;
-      }
-
-      h1 {
-        font-size: 10rem;
-        animation: rotate 4s ease-in-out infinite;
-      }
-
-      h2 {
-        font-size: 6rem;
-        animation: rotate 2s linear infinite;
-      }
-
-      @keyframes rotate {
-        0% {
-          transform: scale(0) rotate(0deg);
-        }
-        60% {
-          transform: scale(1) rotate(180deg);
-        }
-        100% {
-          transform: scale(0) rotate(360deg);
-        }
-      }
-
-      /*
-      http://thenewcode.com/777/Create-Fullscreen-HTML5-Page-Background-Video
-      */
-      video {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        z-index: -100;
-        -ms-transform: translateX(-50%) translateY(-50%);
-        -moz-transform: translateX(-50%) translateY(-50%);
-        -webkit-transform: translateX(-50%) translateY(-50%);
-        transform: translateX(-50%) translateY(-50%);
-        background: black no-repeat;
-        background-size: cover;
-      }
-    </style>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/error.css" />
   </head>
   <body>
     <video
+       class="error__video"
       autostart
       autoplay
       loop
@@ -97,7 +46,7 @@
         src="{{ gif }}"
         type="video/mp4">
     </video>
-    <h1>{{ title }}</h1>
-    <h2>{{ message }}</h2>
+    <h1 class="error__title">{{ title }}</h1>
+    <h2 class="error__message">{{ message }}</h2>
   </body>
 </html>

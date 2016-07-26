@@ -34,53 +34,30 @@
     <meta name="twitter:site" content="@dinoshauer">
 
     <title>{{ thing }}.brain.is/</title>
-    <style>
-      h1 {
-        display: inline;
-      }
-
-      .hidden {
-        display: none;
-      }
-
-      #footer {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 10px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-      }
-
-      a, a:visited {
-        color: black;
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-    </style>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/landing-page.css" />
   </head>
   <body>
-    <h1>{{ thing }}.brain.is/</h1>
-    <h1 contentEditable="true" id="input"></h1>
-    <p id="command" class="hidden">Press enter...</p>
-    {{#if hasRecents}}
-      <div>
-        <p>Recent brains</p>
-        <ul>
-        {{#each recentThings}}
-          <li>
-            <a href="//{{ this }}">{{ this }}</a>
-          </li>
-        {{/each}}
-        </ul>
+    <div class="landing-page">
+      <h1 class="landing-page__header">{{ thing }}.brain.is/</h1>
+      <h1 class="landing-page__header" contentEditable id="input"></h1>
+      <p class="landing-page__paragraph hidden" id="command">Press enter...</p>
+      {{#if hasRecents}}
+        <div>
+          <p>Recent brains</p>
+          <ul>
+          {{#each recentThings}}
+            <li>
+              <a href="//{{ this }}">{{ this }}</a>
+            </li>
+          {{/each}}
+          </ul>
+        </div>
+      {{/if}}
+      <div class="landing-page-footer">
+        <p>Built with 💩 and ⏰ by <a href="https://github.com/Dinoshauer">@dinoshauer</a></p>
+        <p><a href="https://github.com/Dinoshauer/brain.is">Fork it!</a></p>
       </div>
-    {{/if}}
-    <div id="footer">
-      <p>Built with 💩 and ⏰ by <a href="https://github.com/Dinoshauer">@dinoshauer</a></p>
-      <p><a href="https://github.com/Dinoshauer/brain.is">Fork it!</a></p>
     </div>
     <script>
       var input = document.getElementById('input');
@@ -102,8 +79,8 @@
       function oninput () {
         var text = input.innerText;
 
-        if (text.length === 0) command.className = 'hidden';
-        else command.className = '';
+        if (text.length === 0) command.classList.add('hidden');
+        else command.classList.remove('hidden');
       }
     </script>
   </body>

@@ -1,0 +1,20 @@
+.landing-page {
+  padding: 1rem;
+
+  &__header {
+    display: inline;
+  }
+
+  &__paragraph {
+    transition: opacity .1s linear;
+  }
+}
+
+.landing-page-footer {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}

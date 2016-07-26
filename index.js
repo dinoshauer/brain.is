@@ -92,6 +92,16 @@ server.route({
 
 server.route({
   method: 'GET',
+  path: '/css/{param*}',
+  handler: {
+    directory: {
+      path: 'dist/css'
+    }
+  }
+});
+
+server.route({
+  method: 'GET',
   path: '/',
   handler: (request, reply) => {
     let thing = 'localhost:3000';
