@@ -1,0 +1,47 @@
+@keyframes rotate {
+  0% {
+    transform: scale(0) rotate(0deg);
+  }
+  60% {
+    transform: scale(1) rotate(180deg);
+  }
+  100% {
+    transform: scale(0) rotate(360deg);
+  }
+}
+
+.error__title,
+.error__message {
+  text-align: center;
+  color: tomato;
+}
+
+.error__title {
+  font-size: 10rem;
+  animation: rotate 4s ease-in-out infinite;
+}
+
+.error__message {
+  font-size: 6rem;
+  animation: rotate 2s linear infinite;
+}
+
+/*
+http://thenewcode.com/777/Create-Fullscreen-HTML5-Page-Background-Video
+*/
+.error__video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  background: black no-repeat;
+  background-size: cover;
+}

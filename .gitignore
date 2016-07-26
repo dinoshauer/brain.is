@@ -40,3 +40,5 @@ node_modules
 
 # Remove public css
 **/public/css
+
+dist/css

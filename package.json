@@ -6,7 +6,11 @@
   "scripts": {
     "encrypt": "encrypt-env --env BRAIN --write",
     "decrypt": "encrypt-env --decrypt --env BRAIN --write",
-    "dev": "nodemon index.js -e js,html",
+    "compile-sass": "node-sass ./stylesheets/ --quiet --output ./dist/css/",
+    "css-autoprefix": "postcss --use autoprefixer dist/css/*.css -d dist/css/",
+    "compile-css": "npm run compile-sass && npm run css-autoprefix",
+    "compile-prod": "npm run compile-sass && npm run css-autoprefix",
+    "dev": "nodemon -x \"npm run compile-sass && node index.js\" -e js,html,scss",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,7 +26,10 @@
     "vision": "^4.1.0"
   },
   "devDependencies": {
+    "autoprefixer": "^6.3.7",
     "dotenv": "^2.0.0",
-    "encrypt-env": "^0.2.8"
+    "encrypt-env": "^0.2.8",
+    "node-sass": "^3.8.0",
+    "postcss-cli": "^2.5.2"
   }
 }
