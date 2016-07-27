@@ -79,7 +79,23 @@ server.route({
   path: '/static/app-icon/{param*}',
   handler: {
     directory: {
-      path: 'dist/static'
+      path: 'dist/static/app-icon'
+    }
+  },
+  config: {
+    cache: {
+      expiresIn: 86400000,
+      privacy: 'public'
+    }
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/favicon.ico',
+  handler: {
+    file: {
+      path: 'dist/static/app-icon/favicon.ico'
     }
   },
   config: {
