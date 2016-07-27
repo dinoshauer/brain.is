@@ -11,7 +11,8 @@
     "compile-css": "npm run compile-sass && npm run css-autoprefix",
     "compile-prod": "npm run compile-sass && npm run css-autoprefix",
     "dev": "nodemon -x \"npm run compile-sass && node index.js\" -e js,html,scss",
-    "start": "npm run compile-prod && node index.js",
+    "start": "node index.js",
+    "postinstall": "npm run compile-prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "k@mackwerk.dk",
