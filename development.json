@@ -1,0 +1,5 @@
+{
+  "NODE_ENV": "development",
+  "PORT": 8020,
+  "MONGODB_URI": "localhost:27027/tomatorobot"
+}

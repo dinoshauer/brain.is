@@ -1,0 +1,30 @@
+{
+  "name": "brain.is",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "url": "git@github.com:Dinoshauer/brain.is.git",
+    "type": "git"
+  },
+  "author": "Kasper Jacobsen <k@mackwerk.dk>",
+  "scripts": {
+    "dev": "./bin/start-dev.sh",
+    "wait-5": "sleep 5",
+    "api": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "flatten-obj": "^3.1.1",
+    "load-environment": "^2.0.0",
+    "mongojs": "^2.4.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.12.0"
+  }
+}
