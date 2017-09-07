@@ -1,6 +1,0 @@
-{
-  "BRAIN": {
-    "aesKey": "~/.ssh/brain.is.aes",
-    "envFile": "brain.env"
-  }
-}
