@@ -20,7 +20,7 @@
   "dependencies": {
     "boom": "^3.2.2",
     "giphy-api": "^1.1.15",
-    "handlebars": "^4.0.5",
+    "handlebars": "^4.7.7",
     "hapi": "^13.3.0",
     "inert": "^4.0.1",
     "lru-cache": "^4.0.1",
