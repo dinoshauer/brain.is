@@ -30,7 +30,7 @@
     "autoprefixer": "^9.7.5",
     "dotenv": "^8.2.0",
     "encrypt-env": "^0.2.8",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "postcss-cli": "^7.1.0"
   }
 }
